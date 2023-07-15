@@ -1,0 +1,187 @@
+.contain {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    top: 100px;
+}
+
+.login {
+    background-color: rgb(47, 40, 40);
+    height: 400px;
+    width: 350px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 10px black;
+}
+
+.head {
+    position: relative;
+    top: 60px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.head>button {
+    width: 40%;
+    padding: 6px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.enter {
+    position: relative;
+    top: 70px;
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    margin: 0px auto;
+    left: 5px;
+}
+
+.enter>form>input {
+    padding: 8px 5px;
+    border-radius: 5px;
+    outline: none;
+    box-shadow: 1px 1px 3px rgb(142, 126, 126);
+    border: 2px solid white;
+}
+
+.login-btn {
+    position: fixed;
+    cursor: pointer;
+    padding: 5px 40px;
+    border-radius: 5px;
+    top: 440px;
+    box-shadow: 0px 0px 2px rgb(210, 210, 45);
+    background-color: rgb(210, 210, 45);
+}
+
+.login-btn:hover {
+    box-shadow: 0px 0px 8px rgb(210, 210, 45);
+}
+
+.userExists {
+    color: rgb(242, 93, 93);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin: 0px;
+    position: absolute;
+    top: 70px;
+    font-size: 12px;
+}
+
+.icons {
+    position: relative;
+    bottom: 80px;
+    left: 150px;
+}
+
+.frgt-pas {
+    color: white;
+    position: absolute;
+    top: 180px;
+    right: 68px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.fa-user {
+    color: white;
+    position: relative;
+    top: 38px;
+    right: 150px;
+    font-size: 20px;
+    width: 20px;
+}
+
+.fa-lock {
+    color: white;
+    position: relative;
+    right: 150px;
+    top: 38px;
+    font-size: 20px;
+}
+
+.active-page {
+    background-color: rgb(210, 210, 45);
+    transform: translate(-3px, -3px);
+    box-shadow: 3px 3px 0px rgb(102, 102, 19);
+    outline: none;
+    border: none;
+}
+
+.inactive-page {
+    background-color: rgb(155, 162, 167);
+    border: none;
+}
+
+.inactive {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+.user-active {
+    position: absolute;
+    left: 310px;
+    color: white;
+    bottom: 120px;
+    background-color: rgb(45, 40, 40);
+    border-radius: 8px;
+    padding: 10px;
+    width: 250px;
+    padding-left: 25px;
+    box-shadow: 0px 0px 10px rgb(45, 40, 40);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.pass-active {
+    position: absolute;
+    left: 310px;
+    color: white;
+    top: 120px;
+    background-color: rgb(45, 40, 40);
+    border-radius: 8px;
+    padding: 10px;
+    width: 250px;
+    padding-left: 25px;
+    box-shadow: 0px 0px 10px rgb(45, 40, 40);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.pass-notif {
+    color: white;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: small;
+    position: relative;
+    right: 57px;
+    bottom: 15px;
+    text-align: left;
+    width: 150px;
+}
+
+.user-invalid {
+    color: rgb(255, 0, 0);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    position: absolute;
+    top: 50px;
+    right: 8px;
+    width: 248px;
+}
+
+.pass-invalid {
+    color: rgb(255, 3, 3);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    position: absolute;
+    top: 125px;
+    right: 8px;
+    width: 248px;
+}
+
+.signin-eye {
+    position: relative;
+    left: 150px;
+    bottom: 35px;
+}
