@@ -1,5 +1,5 @@
 const express = require("express");
-const mysql = require("mysql");
+const sqlite3 = require("sqlite3").verbose();
 const cors = require("cors");
 const app = express();
 const host = "0.0.0.0";
@@ -8,23 +8,27 @@ const port = 5000;
 app.use(express.json());
 require("dotenv").config();
 
-const db = mysql.createConnection({
-  host: "example-host-name",
-  user: "example_username",
-  password: "example-password",
-  database: "example-database-name",
-  port: "example-port-number",
+const db = new sqlite3.Database("database.db", (err) => {
+  if (err) {
+    console.error(err.message);
+  } else {
+    console.log("Connected to the SQLite database.");
+  }
 });
 
 app.use(cors());
-db.connect(function (err) {
-  if (err) throw err;
-  console.log("connected to database");
+// db.connect(function (err) {
+//   if (err) throw err;
+//   console.log("connected to database");
+// });
+
+app.all("/", (req, res) => {
+  res.status(200).json({ message: "Server is running." });
 });
 
 app.post("/check-if-exists", async (req, res) => {
   const sql = "SELECT * FROM users WHERE username = ?";
-  db.query(sql, [req.body.username], (err, data) => {
+  db.all(sql, [req.body.username], (err, data) => {
     if (err) {
       console.log(err);
       return res.json("error at chek");
@@ -41,7 +45,7 @@ app.post("/check-if-exists", async (req, res) => {
 
 app.post("/register-new-user", async (req, res) => {
   const sql = "INSERT INTO users(username, password) VALUES(?,?);";
-  db.query(sql, [req.body.username, req.body.password], (err) => {
+  db.run(sql, [req.body.username, req.body.password], (err) => {
     if (err) return console.log(err);
     else res.json("user registered successfully");
   });
@@ -49,12 +53,12 @@ app.post("/register-new-user", async (req, res) => {
 
 app.post("/save-todos", async (req, res) => {
   const usersql = "SELECT userid FROM users WHERE username = ?";
-  db.query(usersql, [req.body.username], (err, data) => {
+  db.all(usersql, [req.body.username], (err, data) => {
     if (err) return console.log(err);
     else {
       const sql =
         "INSERT INTO todos(userid, description, completed) VALUES(?,?,?)";
-      db.query(
+      db.run(
         sql,
         [data[0].userid, req.body.description, `${req.body.completed}`],
         (err) => {
@@ -68,11 +72,11 @@ app.post("/save-todos", async (req, res) => {
 
 app.post("/delete", async (req, res) => {
   const usersql = "SELECT userid FROM users WHERE username = ?";
-  db.query(usersql, [req.body.username], (err, data) => {
+  db.all(usersql, [req.body.username], (err, data) => {
     if (err) return console.log(err);
     else {
       const sql = `DELETE FROM todos WHERE userid = ${data[0].userid}`;
-      db.query(sql, (err) => {
+      db.run(sql, (err) => {
         if (err) return console.log(err);
         else res.json(`deleted from database`);
       });
@@ -82,13 +86,14 @@ app.post("/delete", async (req, res) => {
 
 app.post("/onload", async (req, res) => {
   const sql = "SELECT userid FROM users where username = ?";
-  db.query(sql, [req.body.username], (err, data) => {
+  db.all(sql, [req.body.username], (err, data) => {
     if (err) return console.log(err);
     else {
       const tasksql = `SELECT * FROM todos WHERE userid = ${data[0].userid}`;
       const tasks = [];
       const completed = [];
-      db.query(tasksql, (err, data) => {
+      db.all(tasksql, (err, data) => {
+        if (err) console.log(err);
         data.forEach((element) => {
           completed.push(element.completed);
           tasks.push(element.description);
