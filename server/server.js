@@ -4,9 +4,11 @@ const cors = require("cors");
 const app = express();
 const host = "0.0.0.0";
 const port = 5000;
-
-app.use(express.json());
+const twilio = require("twilio");
 require("dotenv").config();
+app.use(express.json());
+
+const client = twilio(process.env.TWILIO_SID, process.env.TWILIO_TOKEN);
 
 const db = new sqlite3.Database("database.db", (err) => {
   if (err) {
@@ -17,13 +19,26 @@ const db = new sqlite3.Database("database.db", (err) => {
 });
 
 app.use(cors());
-// db.connect(function (err) {
-//   if (err) throw err;
-//   console.log("connected to database");
-// });
 
 app.all("/", (req, res) => {
   res.status(200).json({ message: "Server is running." });
+});
+
+app.post("/send-whatsapp", async (req, res) => {
+  const message = req.body.message;
+
+  try {
+    const response = await client.messages.create({
+      body: message,
+      from: process.env.TWILIO_NUM,
+      to: "+918374068550",
+    });
+
+    res.json({ success: true, message: "msg sent" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, error: "failed" });
+  }
 });
 
 app.post("/check-if-exists", async (req, res) => {
